@@ -35,6 +35,11 @@ import {
     mapActions
 } from "vuex";
 export default {
+    data() {
+        return {
+            isDropDownOpen: true,
+        };
+    },
     computed: {
         ...mapGetters({
             funds: "getFundsGetter",
