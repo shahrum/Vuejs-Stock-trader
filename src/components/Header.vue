@@ -17,8 +17,8 @@
                         Save & Load
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Save Data</a>
-                        <a class="dropdown-item" href="#">Load Data</a>
+                        <a class="dropdown-item" @click="saveData()">Save Data</a>
+                        <a class="dropdown-item" @click="loadData()">Load Data</a>
                     </div>
                 </li>
             </ul>
@@ -43,15 +43,50 @@ export default {
     computed: {
         ...mapGetters({
             funds: "getFundsGetter",
+            stockPortfolio: "getStockPortfolioGetter",
+            stocks: "getStocksGetter",
         }),
     },
     methods: {
         ...mapActions({
             randomize: "randomizeStocks",
+            fetchData: "loadDataAction",
         }),
         endDay() {
             console.log("Salam");
             this.randomize();
+        },
+        saveData() {
+            const data = {
+                funds: this.funds,
+                stockPortfolio: this.stockPortfolio,
+                stocks: this.stocks.map((el) => {
+                    return {
+                        id: el.id,
+                        name: el.name,
+                        price: el.price,
+                    };
+                }),
+            };
+            console.log("kale kiri", data);
+            this.$http.put("stock-data.json", data);
+
+            // .then((res) => {
+            //     return res.json();
+            // })
+            // .then((response) => {
+            //     let resultArray = [];
+            //     for (let key in response) {
+            //         resultArray.push({
+            //             ...response[key],
+            //             id: key,
+            //         });
+            //     }
+            //     this.users = resultArray;
+            // });
+        },
+        loadData() {
+            this.fetchData();
         },
     },
 };

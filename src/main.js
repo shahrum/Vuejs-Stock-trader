@@ -1,5 +1,11 @@
 import Vue from "vue";
 import App from "./App.vue";
+
+// Vue resource
+
+import VueResource from "vue-resource";
+
+// Bootstrap
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 // routing
@@ -11,6 +17,13 @@ import { store } from "./store/store";
 
 Vue.config.productionTip = false;
 
+Vue.use(VueResource);
+Vue.http.options.root = "https://vue-js-29638.firebaseio.com/";
+Vue.http.interceptors.push((request, next) => {
+	console.log("interceptor", request);
+	next();
+});
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -20,6 +33,22 @@ const router = new VueRouter({
 
 Vue.filter("currency", (value) => {
 	return "$" + value.toLocaleString();
+});
+
+Vue.directive("highlight", {
+	bind(el, binding, vnode) {
+		if (binding.arg) {
+			el.style[binding.arg] = binding.value;
+		}
+		console.log("bining", binding);
+		console.log("vnode", vnode);
+	},
+});
+
+router.beforeEach((to, from, next) => {
+	console.log("router beforeEach to", to);
+	console.log("router beforeEach from", from);
+	next();
 });
 
 new Vue({

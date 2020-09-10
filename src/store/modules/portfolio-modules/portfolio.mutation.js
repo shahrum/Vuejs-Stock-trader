@@ -23,3 +23,8 @@ export const sellStockMutation = (state, { stockId, quantity, stockPrice }) => {
 	}
 	state.funds += stockPrice * quantity;
 };
+
+export const setPortfolioMutation = (state, portfolio) => {
+	state.funds = portfolio.funds;
+	state.stocks = portfolio.stockPortfolio ? portfolio.stockPortfolio : [];
+};
