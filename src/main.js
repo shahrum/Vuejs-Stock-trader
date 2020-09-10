@@ -14,6 +14,7 @@ import { routes } from "./routes/route";
 
 // Store
 import { store } from "./store/store";
+import Vuelidate from "vuelidate";
 
 Vue.config.productionTip = false;
 
@@ -25,6 +26,7 @@ Vue.http.interceptors.push((request, next) => {
 });
 
 Vue.use(VueRouter);
+Vue.use(Vuelidate);
 
 const router = new VueRouter({
 	mode: "history",
