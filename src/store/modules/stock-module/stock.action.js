@@ -10,5 +10,6 @@ export const initStocksAction = ({ commit }) => {
 };
 
 export const randomizeStocks = ({ commit }) => {
+	console.log("ey janam");
 	commit("rndStocks");
 };

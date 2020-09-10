@@ -9,9 +9,12 @@
                 <router-link to="/stocks" tag="li" class="nav-item" activeClass="active"><a class="nav-link">Stocks</a></router-link>
             </ul>
             <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" @click="endDay()">End Day</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        End Day
+                        Save & Load
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Save Data</a>
@@ -28,13 +31,23 @@
 
 <script>
 import {
-    mapGetters
+    mapGetters,
+    mapActions
 } from "vuex";
 export default {
     computed: {
         ...mapGetters({
             funds: "getFundsGetter",
         }),
+    },
+    methods: {
+        ...mapActions({
+            randomize: "randomizeStocks",
+        }),
+        endDay() {
+            console.log("Salam");
+            this.randomize();
+        },
     },
 };
 </script>
